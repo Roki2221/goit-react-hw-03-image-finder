@@ -1,15 +1,15 @@
 import React from 'react';
-
+import css from './style.module.css';
 function Searchbar({ onSubmit }) {
   const handleSubmit = e => {
     e.preventDefault();
     onSubmit(e.currentTarget.elements.name.value);
-    e.currentTarget.elements.name.value = '';
+    // e.currentTarget.elements.name.value = '';
   };
   return (
-    <header className="searchbar">
-      <form className="form" onSubmit={handleSubmit}>
-        <button type="submit" className="button">
+    <header>
+      <form className={css.SearchForm} onSubmit={handleSubmit}>
+        <button type="submit" className={css.SearchForm_button}>
           <span className="button-label">Search</span>
         </button>
 

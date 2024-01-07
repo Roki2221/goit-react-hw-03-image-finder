@@ -1,10 +1,12 @@
 import React from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 
-function ImageGallery() {
+function ImageGallery({ photos }) {
+  console.log('photos', photos);
+
   return (
-    <ul class="gallery">
-      <ImageGalleryItem></ImageGalleryItem>
+    <ul className="gallery">
+      <ImageGalleryItem images={photos}></ImageGalleryItem>
     </ul>
   );
 }
