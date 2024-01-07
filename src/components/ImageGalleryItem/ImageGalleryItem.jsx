@@ -1,10 +1,10 @@
 import React from 'react';
+import css from './style.module.css';
 
 function ImageGalleryItem({ images }) {
-  console.log('images', images);
-  return images.hits.map(img => {
+  return images.map(img => {
     return (
-      <li className="gallery-item" key={img.id}>
+      <li className={css.ImageGalleryItem} key={img.id}>
         <img src={img.webformatURL} alt="" />
       </li>
     );
