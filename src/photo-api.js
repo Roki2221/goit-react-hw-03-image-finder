@@ -3,8 +3,8 @@ import axios from 'axios';
 async function servicePhotos(request, page) {
   request.split(' ').join('+');
   const response = await axios.get(
-    `https://pixabay.com/api/?key=40085171-b4834c19132777055d535b782&q=${request}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`
-  );
+    `https://pixabay.com/api/?key=40085171-b4834c19132777055d535b782&q=${request}&image_type=photo&orientation=horizontal&per_page=12&page=${page}`
+  ); //pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
   console.log(response);
   return response;
 }

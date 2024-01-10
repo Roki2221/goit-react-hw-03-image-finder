@@ -12,6 +12,7 @@ export default class App extends Component {
     error: '',
     photoData: [],
     maxPage: null,
+    loadMore: false,
   };
   componentDidUpdate(_, prevState) {
     if (
@@ -46,12 +47,13 @@ export default class App extends Component {
   };
 
   loadMorePhotos = async () => {
-    this.setState({ isLoading: true });
+    this.setState({ isLoading: true, loadMore: true });
     const photosData = await servicePhotos(this.state.query, this.state.page);
 
     this.setState(prev => ({
       photoData: [...prev.photoData, ...photosData.data.hits],
       isLoading: false,
+      loadMore: false,
     }));
   };
 
@@ -65,13 +67,13 @@ export default class App extends Component {
     }));
   };
   render() {
-    const { isLoading, photoData, maxPage, error } = this.state;
+    const { isLoading, photoData, maxPage, error, loadMore } = this.state;
     console.log(photoData.length);
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit}></Searchbar>
         {error && <h2>{error}</h2>}
-        {photoData.length > 0 && !isLoading && (
+        {photoData.length > 0 && !loadMore && (
           <ImageGallery photos={photoData}></ImageGallery>
         )}
         {isLoading && <h2>loading..</h2>}
