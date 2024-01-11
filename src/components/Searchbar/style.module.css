@@ -1,55 +1,47 @@
 .SearchForm {
+  padding: 10px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  background-color: #303f9f;
+  position: fixed;
+  top: 0;
+  z-index: 100;
   width: 100%;
+}
+.Input_container {
+  display: flex;
   background-color: #fff;
-  border-radius: 3px;
-  overflow: hidden;
 }
-
 .SearchForm_button {
-  display: inline-block;
-  width: 48px;
-  height: 48px;
-  border: 0;
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.6;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  width: 40px;
+  border: transparent;
+  background: transparent
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
+    no-repeat center;
   cursor: pointer;
-  outline: none;
+  opacity: 0.7;
 }
 
-.SearchForm-button:hover {
+.SearchForm_button:hover {
   opacity: 1;
 }
 
-.SearchForm-button-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
-  border: 0;
-}
-
-.SearchForm-input {
-  display: inline-block;
-  width: 100%;
-  font: inherit;
-  font-size: 20px;
+.SearchForm_input {
   border: none;
+  margin: 0;
+  width: 230px;
+  padding: 7px 0px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: inherit;
+}
+.SearchForm_input:focus {
   outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
 }
 
-.SearchForm-input::placeholder {
+.SearchForm_input::placeholder {
   font: inherit;
   font-size: 18px;
 }

@@ -9,18 +9,21 @@ function Searchbar({ onSubmit }) {
   return (
     <header>
       <form className={css.SearchForm} onSubmit={handleSubmit}>
-        <button type="submit" className={css.SearchForm_button}>
-          <span className="button-label">Search</span>
-        </button>
-
-        <input
-          name="name"
-          className="input"
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
+        <div className={css.Input_container}>
+          <button
+            type="submit"
+            className={css.SearchForm_button}
+            onSubmit={handleSubmit}
+          ></button>
+          <input
+            name="name"
+            className={css.SearchForm_input}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+        </div>
       </form>
     </header>
   );

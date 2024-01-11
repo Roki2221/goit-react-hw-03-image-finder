@@ -3,16 +3,17 @@ import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import { servicePhotos } from '../photo-api';
+import Loader from './Loader/Loader';
 
 export default class App extends Component {
   state = {
     page: 1,
     query: null,
     isLoading: false,
+    loadingMore: false,
     error: '',
     photoData: [],
     maxPage: null,
-    loadMore: false,
   };
   componentDidUpdate(_, prevState) {
     if (
@@ -47,13 +48,13 @@ export default class App extends Component {
   };
 
   loadMorePhotos = async () => {
-    this.setState({ isLoading: true, loadMore: true });
+    this.setState({ loadingMore: true });
     const photosData = await servicePhotos(this.state.query, this.state.page);
 
     this.setState(prev => ({
       photoData: [...prev.photoData, ...photosData.data.hits],
-      isLoading: false,
-      loadMore: false,
+
+      loadingMore: false,
     }));
   };
 
@@ -67,17 +68,20 @@ export default class App extends Component {
     }));
   };
   render() {
-    const { isLoading, photoData, maxPage, error, loadMore } = this.state;
+    const { isLoading, photoData, maxPage, error, page, loadingMore } =
+      this.state;
     console.log(photoData.length);
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit}></Searchbar>
-        {error && <h2>{error}</h2>}
-        {photoData.length > 0 && !loadMore && (
+        {error && <h2 style={{ marginTop: '60px' }}>{error}</h2>}
+        {photoData.length > 0 && !isLoading && (
           <ImageGallery photos={photoData}></ImageGallery>
         )}
-        {isLoading && <h2>loading..</h2>}
-        {maxPage > 1 && !isLoading && <Button loadingMore={this.handleLoad} />}
+        {(isLoading || loadingMore) && <Loader />}
+        {maxPage > 1 && maxPage !== page && !isLoading && (
+          <Button loadingMore={this.handleLoad} />
+        )}
       </>
     );
   }
