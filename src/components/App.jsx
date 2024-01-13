@@ -4,6 +4,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import { servicePhotos } from '../photo-api';
 import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
 
 export default class App extends Component {
   state = {
@@ -12,9 +13,12 @@ export default class App extends Component {
     isLoading: false,
     loadingMore: false,
     error: '',
-    photoData: [],
+    photosData: [],
     maxPage: null,
+    isShowModal: false,
+    openedImageSrc: null,
   };
+
   componentDidUpdate(_, prevState) {
     if (
       prevState.query !== this.state.query &&
@@ -41,7 +45,7 @@ export default class App extends Component {
       });
     }
     this.setState({
-      photoData: photosData.data.hits,
+      photosData: photosData.data.hits,
       isLoading: false,
       maxPage: countPages,
     });
@@ -52,7 +56,7 @@ export default class App extends Component {
     const photosData = await servicePhotos(this.state.query, this.state.page);
 
     this.setState(prev => ({
-      photoData: [...prev.photoData, ...photosData.data.hits],
+      photosData: [...prev.photosData, ...photosData.data.hits],
 
       loadingMore: false,
     }));
@@ -67,20 +71,51 @@ export default class App extends Component {
       page: (prev.page += 1),
     }));
   };
+
+  modalOpen = photoSrc => {
+    const selectedPhoto = this.state.photosData.find(
+      photo => photo.webformatURL === photoSrc
+    );
+    console.log(selectedPhoto);
+    this.setState({
+      openedImageSrc: selectedPhoto.largeImageURL,
+      isShowModal: true,
+    });
+  };
+  modalClose = () => {
+    this.setState({
+      isShowModal: false,
+    });
+  };
+
   render() {
-    const { isLoading, photoData, maxPage, error, page, loadingMore } =
-      this.state;
-    console.log(photoData.length);
+    const {
+      isLoading,
+      photosData,
+      maxPage,
+      error,
+      page,
+      loadingMore,
+      isShowModal,
+      openedImageSrc,
+    } = this.state;
+    console.log(photosData);
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit}></Searchbar>
         {error && <h2 style={{ marginTop: '60px' }}>{error}</h2>}
-        {photoData.length > 0 && !isLoading && (
-          <ImageGallery photos={photoData}></ImageGallery>
+        {photosData.length > 0 && !isLoading && (
+          <ImageGallery
+            photos={photosData}
+            modalOpen={this.modalOpen}
+          ></ImageGallery>
         )}
         {(isLoading || loadingMore) && <Loader />}
         {maxPage > 1 && maxPage !== page && !isLoading && (
           <Button loadingMore={this.handleLoad} />
+        )}
+        {isShowModal && (
+          <Modal close={this.modalClose} openedImage={openedImageSrc}></Modal>
         )}
       </>
     );

@@ -1,14 +1,16 @@
 import React from 'react';
 import css from './style.module.css';
 
-function ImageGalleryItem({ images }) {
-  return images.map(img => {
-    return (
-      <li className={css.ImageGalleryItem} key={img.id}>
-        <img src={img.webformatURL} alt="" />
-      </li>
-    );
-  });
+function ImageGalleryItem({ webformatURL, modalOpen }) {
+  const handleClick = e => {
+    modalOpen(e.target.src);
+  };
+
+  return (
+    <li className={css.ImageGalleryItem}>
+      <img src={webformatURL} alt="" onClick={handleClick} />
+    </li>
+  );
 }
 
 export default ImageGalleryItem;
