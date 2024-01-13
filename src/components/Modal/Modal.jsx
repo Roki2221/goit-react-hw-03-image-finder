@@ -17,7 +17,7 @@ export default class Modal extends Component {
   }
   render() {
     return (
-      <div className={css.Overlay} onClick={this.props.handleClick}>
+      <div className={css.Overlay} onClick={this.handleClick}>
         <div className={css.Modal}>
           <img src={this.props.openedImage} alt="" />
         </div>
