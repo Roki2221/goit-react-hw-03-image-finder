@@ -1,16 +1,27 @@
-import React from 'react';
 import css from './style.module.css';
-function Modal({ openedImage, close }) {
-  const handleClick = e => {
-    e.target === e.currentTarget && close();
-  };
-  return (
-    <div className={css.Overlay} onClick={handleClick}>
-      <div className={css.Modal}>
-        <img src={openedImage} alt="" />
-      </div>
-    </div>
-  );
-}
+import React, { Component } from 'react';
 
-export default Modal;
+export default class Modal extends Component {
+  handleClick = e => {
+    e.target === e.currentTarget && this.props.close();
+  };
+  handleEsc = e => {
+    e.code === 'Escape' && this.props.close();
+    console.log('first');
+  };
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleEsc);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleEsc);
+  }
+  render() {
+    return (
+      <div className={css.Overlay} onClick={this.props.handleClick}>
+        <div className={css.Modal}>
+          <img src={this.props.openedImage} alt="" />
+        </div>
+      </div>
+    );
+  }
+}
