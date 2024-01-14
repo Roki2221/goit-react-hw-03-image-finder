@@ -28,11 +28,8 @@ export default class App extends Component {
         this.servicePhotos();
       });
     }
-    if (
-      prevState.page !== this.state.page &&
-      prevState.query === this.state.query
-    ) {
-      console.log('first');
+    if (prevState.page !== this.state.page && this.state.page !== 1) {
+      console.log(prevState.query, this.state.query);
       this.loadMorePhotos();
     }
   }
@@ -98,7 +95,28 @@ export default class App extends Component {
       loadingMore,
       isShowModal,
       openedImageSrc,
+      query,
     } = this.state;
+    console.log(
+      'query',
+      query,
+      'isLoading',
+      isLoading,
+      'photosData',
+      photosData,
+      'maxPage',
+      maxPage,
+      'error',
+      error,
+      'page',
+      page,
+      'loadingMore',
+      loadingMore,
+      'isShowModal',
+      isShowModal,
+      'openedImageSrc',
+      openedImageSrc
+    );
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit}></Searchbar>
