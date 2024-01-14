@@ -28,10 +28,6 @@ export default class App extends Component {
         this.servicePhotos();
       });
     }
-    if (prevState.page !== this.state.page) {
-      console.log(prevState.query, this.state.query);
-      this.loadMorePhotos();
-    }
   }
 
   servicePhotos = async () => {
@@ -65,9 +61,14 @@ export default class App extends Component {
   };
 
   handleLoad = () => {
-    this.setState(prev => ({
-      page: (prev.page += 1),
-    }));
+    this.setState(
+      prev => ({
+        page: prev.page + 1,
+      }),
+      () => {
+        this.loadMorePhotos();
+      }
+    );
   };
 
   modalOpen = photoSrc => {
