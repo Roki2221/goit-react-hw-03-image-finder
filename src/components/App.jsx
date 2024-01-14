@@ -57,7 +57,6 @@ export default class App extends Component {
 
     this.setState(prev => ({
       photosData: [...prev.photosData, ...photosData.data.hits],
-
       loadingMore: false,
     }));
   };
