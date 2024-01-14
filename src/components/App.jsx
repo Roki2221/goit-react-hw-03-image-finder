@@ -28,7 +28,7 @@ export default class App extends Component {
         this.servicePhotos();
       });
     }
-    if (prevState.page !== this.state.page && this.state.page !== 1) {
+    if (prevState.page !== this.state.page) {
       console.log(prevState.query, this.state.query);
       this.loadMorePhotos();
     }
