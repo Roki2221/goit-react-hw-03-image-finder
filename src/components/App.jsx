@@ -20,11 +20,12 @@ export default class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
+    console.log('first');
     if (
       prevState.query !== this.state.query &&
       this.state.query.trim().length !== 0
     ) {
-      this.setState({ page: 1 });
+      this.setState({ page: 1, photosData: [] });
       this.servicePhotos();
     }
     if (
@@ -36,6 +37,7 @@ export default class App extends Component {
   }
 
   servicePhotos = async () => {
+    console.log('seconf');
     this.setState({ isLoading: true, error: '' });
     const photosData = await servicePhotos(this.state.query, this.state.page);
     const countPages = Math.ceil(photosData.data.totalHits / 12);
