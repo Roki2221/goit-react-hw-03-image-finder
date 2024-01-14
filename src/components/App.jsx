@@ -25,8 +25,9 @@ export default class App extends Component {
       prevState.query !== this.state.query &&
       this.state.query.trim().length !== 0
     ) {
-      this.setState({ page: 1, photosData: [] });
-      this.servicePhotos();
+      this.setState({ page: 1, photosData: [] }, () => {
+        this.servicePhotos();
+      });
     }
     if (
       prevState.page !== this.state.page &&
@@ -37,10 +38,10 @@ export default class App extends Component {
   }
 
   servicePhotos = async () => {
-    console.log('seconf');
     this.setState({ isLoading: true, error: '' });
     const photosData = await servicePhotos(this.state.query, this.state.page);
     const countPages = Math.ceil(photosData.data.totalHits / 12);
+    console.log(photosData.data.hits.length);
     if (photosData.data.hits.length < 1) {
       this.setState({
         error: 'Sorry, nothing found.',
