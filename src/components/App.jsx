@@ -20,7 +20,6 @@ export default class App extends Component {
   };
 
   componentDidUpdate(_, prevState) {
-    console.log('first');
     if (
       prevState.query !== this.state.query &&
       this.state.query.trim().length !== 0
@@ -33,6 +32,7 @@ export default class App extends Component {
       prevState.page !== this.state.page &&
       prevState.query === this.state.query
     ) {
+      console.log('first');
       this.loadMorePhotos();
     }
   }
@@ -41,7 +41,6 @@ export default class App extends Component {
     this.setState({ isLoading: true, error: '' });
     const photosData = await servicePhotos(this.state.query, this.state.page);
     const countPages = Math.ceil(photosData.data.totalHits / 12);
-    console.log(photosData.data.hits.length);
     if (photosData.data.hits.length < 1) {
       this.setState({
         error: 'Sorry, nothing found.',
@@ -78,7 +77,6 @@ export default class App extends Component {
     const selectedPhoto = this.state.photosData.find(
       photo => photo.webformatURL === photoSrc
     );
-    console.log(selectedPhoto);
     this.setState({
       openedImageSrc: selectedPhoto.largeImageURL,
       isShowModal: true,
@@ -101,7 +99,6 @@ export default class App extends Component {
       isShowModal,
       openedImageSrc,
     } = this.state;
-    console.log(photosData);
     return (
       <>
         <Searchbar onSubmit={this.handleSubmit}></Searchbar>
